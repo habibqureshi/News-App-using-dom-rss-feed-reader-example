@@ -18,11 +18,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Created by HabibQureshi on 9/25/2017.
+ * this class download the rss feed and parse it
  */
 
 public class getRssFeed extends AsyncTask<String,Void,List> {
-    returnData data;
-    public getRssFeed(returnData data) {
+    returnData data;//interface
+    public getRssFeed(returnData data) {//interface context
         super();
         this.data=data;
 
@@ -31,7 +32,7 @@ public class getRssFeed extends AsyncTask<String,Void,List> {
     @Override
     protected void onPostExecute(List list) {
         super.onPostExecute(list);
-        data.getData(list);
+        data.getData(list);//calling interface function o implemented class can get the data
     }
 
     @Override
@@ -44,13 +45,16 @@ public class getRssFeed extends AsyncTask<String,Void,List> {
             Document document=doc.parse(inputStream);
             inputStream.close();
             connection.disconnect();
-            return MapDataToClass(document.getDocumentElement().getElementsByTagName("item"));
+            return MapDataToClass(document.getDocumentElement().getElementsByTagName("item"));//getting <item> tag data from rss feed and mapping to class
 
         } catch (Exception e) {
             M.l(e.getMessage().toString());
         }
         return null;
     }
+    /*
+    * this function map data to class
+    * */
     public List MapDataToClass( NodeList list){
         int size=list.getLength();
         NodeList child;

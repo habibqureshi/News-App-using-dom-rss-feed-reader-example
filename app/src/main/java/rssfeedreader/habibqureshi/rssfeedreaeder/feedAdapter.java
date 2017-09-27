@@ -34,7 +34,7 @@ public class feedAdapter extends BaseAdapter {
         this.inflator=inflator.from(context);
         this.data=data;
         this.context=context;
-        this.loading=BitmapFactory.decodeResource(context.getResources(),R.drawable.loading);
+        this.loading=BitmapFactory.decodeResource(context.getResources(),R.drawable.loading);//loading img
     }
     @Override
     public int getCount() {
@@ -72,11 +72,11 @@ public class feedAdapter extends BaseAdapter {
         myViewHolder.pubDate.setText(this.data.get(position).getPubDate());
         myViewHolder.category.setText(this.data.get(position).getCategory());
         myViewHolder.desc.setText(this.data.get(position).getDescription());
-        if (storeBitmaps.gadgets360Bitmaps[position]==null) {
-            myViewHolder.iv.setImageBitmap(this.loading);
-            new DownloadImagesTask(myViewHolder.iv, position,this.data.get(position).getStoryImage()).execute();
+        if (storeBitmaps.gadgets360Bitmaps[position]==null) {//checking if img is already downloaded or not
+            myViewHolder.iv.setImageBitmap(this.loading);//setting loading img to ImageView
+            new DownloadImagesTask(myViewHolder.iv, position,this.data.get(position).getStoryImage()).execute();//downloading img from web
         }
-        else myViewHolder.iv.setImageBitmap(storeBitmaps.gadgets360Bitmaps[position]);
+        else myViewHolder.iv.setImageBitmap(storeBitmaps.gadgets360Bitmaps[position]);//if img is already downloaded then show it
 
 
         return convertView;
@@ -127,10 +127,10 @@ public class feedAdapter extends BaseAdapter {
         protected void onPostExecute(ImageView result) {
             if(result!=null) {
                 this.iv.setImageBitmap(bitmap);
-                storeBitmaps.gadgets360Bitmaps[position]=bitmap;
+                storeBitmaps.gadgets360Bitmaps[position]=bitmap;//store img to bitmaps array so we can use it again
             }
             else
-                iv.setImageResource(R.drawable.loading);
+                iv.setImageResource(R.drawable.loading);//if img is failed to download set loading img to ImageView
         }
 
 

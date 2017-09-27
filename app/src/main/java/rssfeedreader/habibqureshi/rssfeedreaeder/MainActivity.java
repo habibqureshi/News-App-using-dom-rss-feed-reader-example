@@ -1,27 +1,10 @@
 package rssfeedreader.habibqureshi.rssfeedreaeder;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
-
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -34,14 +17,22 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         this.fm = getSupportFragmentManager();
         ft=fm.beginTransaction();
-        this.changeSupportFragment(new categorySelection(),true);
+        this.changeSupportFragment(new categorySelection(),true);   //function calls for changing the fragment
 
 
     }
+    /*
+    This function call to download ResFeed with in the mainActivity or its fragments, it takes url and fragrament context
+    for Callback Result
+
+     */
     void downloadRss(String url,displayContent dis) {
         new getRssFeed(dis).execute(url);
     }
+    /*
+        This function used to change the fragment
 
+         */
     public void changeSupportFragment(android.support.v4.app.Fragment frag,
                                       Boolean addToStack) {
         ft = fm.beginTransaction();
@@ -52,6 +43,10 @@ public class MainActivity extends AppCompatActivity  {
         }
         ft.commitAllowingStateLoss();
     }
+    /*
+        This function display progress Message
+
+         */
     public void showProgresMessage(String message) {
         progress = new ProgressDialog(this);
         progress.setMessage(message);
@@ -60,23 +55,11 @@ public class MainActivity extends AppCompatActivity  {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
-    public Boolean isProgressShowing()
-    {
-        if(this.progress!=null)
-            if(this.progress.isShowing())
-                return true;
-        return false;
-    }
-    public void updateProgressMessage(final String s)
-    {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progress.setMessage(s);
-            }
-        });
-    }
-    public void cancleProgressMessage() {
+    /*
+         This function cancel the progress message
+
+          */
+    public void cancelProgressMessage() {
         if (progress != null)
             if (progress.isShowing())
                 this.progress.cancel();

@@ -5,6 +5,11 @@ package rssfeedreader.habibqureshi.rssfeedreaeder;
  */
 
 public class gadgets360 {
+    /*
+    * This is the class to store data from rss
+    * so we don't have to parse again and again
+    *
+    */
     public String tittle="tittle";
     public String link="link";
     public String updatedAt="updateAt";

@@ -29,18 +29,23 @@ public class displayContent extends Fragment implements returnData{
         if (getActivity() instanceof MainActivity) {
             activity = (MainActivity) getActivity();
         }
-        activity.showProgresMessage("Loading");
+        activity.showProgresMessage("Loading");//showing progress
         this.list= (ListView) fragment_view.findViewById(R.id.listView);
-        url=getArguments().getString("link");
-        activity.downloadRss(url,this);
+        url=getArguments().getString("link");//getting link from bundle
+        activity.downloadRss(url,this);//calling function to get rss
         return fragment_view;
     }
+    /*
+        This function will auto call when rss will be available ,
+
+         */
 
     @Override
     public void getData(List list) {
         this.data = list;
         M.l("main");
-        activity.cancleProgressMessage();
+        activity.cancelProgressMessage();
+        // init bitmap array so i can show loading img until the img is not loaded from web
         storeBitmaps.gadgets360Bitmaps = new Bitmap[this.data.size()];
         for (int i = 0; i < data.size(); i++) {
             data.get(i).printData();

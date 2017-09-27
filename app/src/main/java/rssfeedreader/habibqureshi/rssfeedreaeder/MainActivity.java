@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         this.fm = getSupportFragmentManager();
         ft=fm.beginTransaction();
-        this.changeSupportFragment(new categorySelection(),true);   //function calls for changing the fragment
+        this.changeSupportFragment(new categorySelection(),false);   //function calls for changing the fragment
 
 
     }
